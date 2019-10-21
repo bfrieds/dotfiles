@@ -1,0 +1,20 @@
+[user]
+	name = brian
+	email = brian@bfrieds.dev
+[push]
+	default = current
+[alias]
+	b = branch
+	ci = commit
+	ca = commit --amend
+	can = commit --amend --no-edit
+	cmp = "!f() { git checkout master && git pull; }; f"
+	co = checkout
+	d = diff
+	dh = diff HEAD
+	fa = fetch --all
+	nuke = "!f() { git push origin --delete $1; git branch -D $1; }; f"
+	pr = "!f() { git fetch origin refs/pull/$1/head:refs/remotes/origin/pr/$1 && git checkout FETCH_HEAD && git remote prune origin; }; f"
+	s = status
+[core]
+	editor = /usr/local/bin/nvim

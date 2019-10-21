@@ -1,0 +1,22 @@
+snippet pr "Print py 3"
+print($0)
+endsnippet
+
+snippet comm "Multiline comment"
+# -----------------------
+# $0
+# -----------------------
+endsnippet
+
+snippet main "Run if this is the main file"
+if __name__ == "__main__":
+	$0
+endsnippet
+
+snippet todo "A todo comment"
+# TODO: $0 - `!v strftime("%m/%d/%y %H:%M:%S")` `echo $USER`
+endsnippet
+
+snippet pl "print list"
+print(*$0, sep="\n")
+endsnippet

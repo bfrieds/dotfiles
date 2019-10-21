@@ -1,0 +1,80 @@
+git status - view staged, unstaged, and untracked files
+git commit - save staged snapshot to the git history
+
+git log    - view history
+	git log --author=<pattern>
+		- search for author
+	git log --grep=<pattern>
+		- search for commit message
+
+	git log --oneline
+	git log <file>
+	git log --graph --decorate
+
+git checkout <branch|commit|file>
+	- Checking out a commit will not allow you to save any of the changes
+	- Checking out a file will put the checked out version of the file in the working
+	  directory which can be committed
+
+git revert <commit>
+	- Adds a negative commit to the history
+	- Can be undone
+
+	git revert HEAD 
+		- undoes the last commit
+
+git reset
+	- Resets the staging area which is different from revert
+	- Don't do this for published commits otherwise there will be a hole in the git
+	  history
+
+	- Reset can be used to turn many local commits to a single commit
+
+	git reset
+		- Unstage all changes
+
+	git reset <HEAD|commit|file>
+		- Unstages a file but the changes are still there
+
+	git reset --hard <HEAD|commit|file>
+		- Reset the working directory to the last commit
+
+git clean
+	- Deletes untracked files
+
+git commit --amend
+	- Combines staged changes with the previous commit
+	- This alters the last commit without changing it
+	- Don't do this on published commits
+
+	git commit --amend --no-edit
+		- Ammend and don't change the commit message
+
+git stash
+	- Saves changes that aren't ready for a commit
+
+git stash list
+	- Show all stashes
+
+git stash pop <|stash>
+	- Reapply stashed changes - this deletes the stash
+	- No arg just uses the last stash
+
+git stash apply
+	- Applies the stashed changes but doesn't delete them
+	- Useful for applying to multiple branches
+
+git stash save <message>
+	- Puts the message on the commit for more context
+
+git stash show
+	- View stash diff
+
+git stash branch <branch_name> <stash>
+	- Create a new branch from the stash
+
+git stash drop <stash>
+	- Delete the stash
+
+git stash clear
+	- Delete all
