@@ -91,16 +91,17 @@ PROMPT_COMMAND=fullPrompt
 export CLICOLOR=1
 export LS_COLORS='di=0;35'
 
-gruvbox_colors="$HOME/.dot_files/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
+gruvbox_colors="$HOME/dotfiles/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
 test -f "$gruvbox_colors" && source $gruvbox_colors
 # }}}
 
 # Global Variables {{{
 # ====================================
-export VIMRC='$HOME/dot_files/nvim/init.vim'
-export tmux='$HOME/dot_files/tmux/tmux.conf'
+export VIMRC='$HOME/dotfiles/nvim/init.vim'
+export tmux='$HOME/dotfiles/tmux/tmux.conf'
 
 export EDITOR='nvim'
+export PEDL='$HOME/pedl'
 # }}}
 
 # Aliases {{{
@@ -145,15 +146,45 @@ alias gcd='cd $(git rev-parse --show-toplevel)'
 alias genv='source genv'
 
 # Docker
-alias d=docker
+alias d='docker'
 alias doc='docker'
 alias dcomp='docker-compose'
-alias dmongo='docker run -d -p 27017:27017 mongo'
 
 # other
 alias c='clear'
 alias fup='python deploy/local/cluster_cmd.py fixture-up && python deploy/local/cluster_cmd.py logs'
 alias fdn='make -C deploy/local fixture-down'
+
+# git
+alias g='git'
+
+alias gs='git status -sb'
+
+alias gd='git diff'
+alias gdh='git diff HEAD'
+
+alias gl='git log'
+
+alias ga='git add'
+alias gaa='git add -A'
+
+alias gc='git commit'
+alias gca='git commit --amend'
+alias gcan='git commit --amend --no-edit'
+alias gcm='git commit -m'
+
+alias gco='git checkout'
+
+alias gps='git push'
+alias gpsf='git push --force'
+
+alias gr='git rebase'
+alias grm='git rebase master'
+alias grim='git rebase -i master'
+
+# Work
+alias m='make'
+alias mp="make -C $PEDL"
 # }}}
 
 # Plugins {{{
@@ -248,12 +279,22 @@ gh() {
   grep -o "[a-f0-9]\{7,\}"
 }
 
-gr() {
-  is_in_git_repo || return
-  git remote -v | awk '{print $1 "\t" $2}' | uniq |
-  fzf-down --tac \
-    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
-  cut -d$'\t' -f1
+#gr() {
+#  is_in_git_repo || return
+#  git remote -v | awk '{print $1 "\t" $2}' | uniq |
+#  fzf-down --tac \
+#    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
+#  cut -d$'\t' -f1
+#}
+
+gfpr() {
+	is_in_git_repo || return
+	git fetch upstream pull/$1/head:pr-$1 && git checkout pr-$1
+}
+
+gfb() {
+	is_in_git_repo || return
+	git fetch git@github.com:$1/pedl.git $2:$2
 }
 
 if [[ $- =~ i ]]; then
@@ -284,5 +325,16 @@ export GO111MODULE=on
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
-local_conf="$HOME/.dot_files/shell/local_bin/local_conf.sh"
+local_conf="$HOME/dotfiles/shell/local_bin/local_conf.sh"
 test -f "$local_conf" && source "$local_conf"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/brian/Downloads/google-cloud-sdk/path.bash.inc' ]; then . '/Users/brian/Downloads/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/brian/Downloads/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/brian/Downloads/google-cloud-sdk/completion.bash.inc'; fi
+
+# Setting PATH for Python 3.6
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
+export PATH

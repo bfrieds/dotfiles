@@ -10,18 +10,18 @@ let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 let g:vim_bootstrap_langs = "c,go,html,javascript,python"
 let g:vim_bootstrap_editor = "nvim"       " nvim or vim
 
-if !filereadable(vimplug_exists)
-  if !executable("curl")
-    echoerr "You have to install curl or first install vim-plug yourself!"
-    execute "q!"
-  endif
-  echo "Installing Vim-Plug..."
-  echo ""
-  silent !\curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  let g:not_finish_vimplug = "yes"
-
-  autocmd VimEnter * PlugInstall
-endif
+"if !filereadable(vimplug_exists)
+"  if !executable("curl")
+"    echoerr "You have to install curl or first install vim-plug yourself!"
+"    execute "q!"
+"  endif
+"  echo "Installing Vim-Plug..."
+"  echo ""
+"  silent !\curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"  let g:not_finish_vimplug = "yes"
+"
+"  autocmd VimEnter * PlugInstall
+"endif
 
 " Required:
 call plug#begin(expand('~/.config/nvim/plugged'))
@@ -84,24 +84,6 @@ Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 let g:go_bin_path= $HOME . "/go/bin"
 " }}}
 
-" HTML Bundle {{{
-Plug 'hail2u/vim-css3-syntax'
-Plug 'cakebaker/scss-syntax.vim'
-Plug 'gorodinskiy/vim-coloresque'
-Plug 'tpope/vim-markdown'
-Plug 'mattn/emmet-vim'
-" }}}
-
-" Javascript Bundle {{{
-" Plug 'othree/yajs.vim'
-Plug 'elzr/vim-json', { 'for': ['javascript', 'javascript.jsx', 'json'] }
-Plug 'prettier/vim-prettier', { 'do': 'npm install' }
-" Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'sheerun/vim-polyglot'
-Plug 'HerringtonDarkholme/yats.vim'
-" Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-" }}}
-
 " Python Bundle {{{
 " Plug 'davidhalter/jedi-vim'
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
@@ -141,7 +123,7 @@ Plug 'morhetz/gruvbox'
 let g:gruvbox_contrast_dark = 'hard'
 
 " c
-Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
+"Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
 " }}}
 
 
@@ -575,7 +557,7 @@ if !exists('*s:setupWrapping')
 endif
 
 function! EditDot(file)
-	let path = $HOME . '/.dot_files/' . a:file
+	let path = $HOME . '/dotfiles/' . a:file
   execute "tabe " . fnameescape(l:path)
 	execute "Glcd"
 endfunction
@@ -764,7 +746,7 @@ cnoreabbr Gcb Git co -b
 cnoreabbr Gstash Git stash
 cnoreabbr Gapply Git stash apply
 
-cnoreabbr cheat tabe ~/.dot_files/cheatsheets/
+cnoreabbr cheat tabe ~/dotfiles/cheatsheets/
 
 " let g:github_enterprise_urls = ['https://github.ibm.com']
 " " }}}

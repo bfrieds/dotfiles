@@ -1,6 +1,6 @@
 [user]
 	name = brian
-	email = brian@bfrieds.dev
+	email = brian@determined.ai
 [push]
 	default = current
 [alias]
@@ -18,3 +18,19 @@
 	s = status
 [core]
 	editor = /usr/local/bin/nvim
+	pager = diff-so-fancy | less --tabs=4 -RFX
+	excludesfile = /Users/brian/.gitignore
+[color]
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse

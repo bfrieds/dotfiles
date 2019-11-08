@@ -24,7 +24,7 @@ brew install \
 $(brew --prefix)/opt/fzf/install
 
 # Creates symlinks for dotfiles
-DOT_FILES="$HOME/dot_files"
+DOT_FILES="$HOME/dotfiles"
 
 echo "Dot files folder: $DOT_FILES"
 
