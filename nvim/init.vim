@@ -10,18 +10,18 @@ let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 let g:vim_bootstrap_langs = "c,go,html,javascript,python"
 let g:vim_bootstrap_editor = "nvim"       " nvim or vim
 
-"if !filereadable(vimplug_exists)
-"  if !executable("curl")
-"    echoerr "You have to install curl or first install vim-plug yourself!"
-"    execute "q!"
-"  endif
-"  echo "Installing Vim-Plug..."
-"  echo ""
-"  silent !\curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"  let g:not_finish_vimplug = "yes"
-"
-"  autocmd VimEnter * PlugInstall
-"endif
+if !filereadable(vimplug_exists)
+  if !executable("curl")
+    echoerr "You have to install curl or first install vim-plug yourself!"
+    execute "q!"
+  endif
+  echo "Installing Vim-Plug..."
+  echo ""
+  silent !\curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  let g:not_finish_vimplug = "yes"
+
+  autocmd VimEnter * PlugInstall
+endif
 
 " Required:
 call plug#begin(expand('~/.config/nvim/plugged'))
@@ -51,23 +51,23 @@ Plug 'Shougo/denite.nvim'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 let g:coc_global_extensions = [
-			\ 'coc-css',
-			\ 'coc-emmet',
-			\ 'coc-emoji',
-			\ 'coc-eslint',
-			\ 'coc-git',
-			\ 'coc-html',
-			\ 'coc-json',
-			\ 'coc-prettier',
-			\ 'coc-python',
-			\ 'coc-snippets',
-			\ 'coc-tslint',
-			\ 'coc-tslint-plugin',
-			\ 'coc-tsserver',
-			\ 'coc-ultisnips',
-			\ 'coc-vimlsp',
-			\ 'coc-yaml',
-			\ ]
+      \ 'coc-css',
+      \ 'coc-emmet',
+      \ 'coc-emoji',
+      \ 'coc-eslint',
+      \ 'coc-git',
+      \ 'coc-html',
+      \ 'coc-json',
+      \ 'coc-prettier',
+      \ 'coc-python',
+      \ 'coc-snippets',
+      \ 'coc-tslint',
+      \ 'coc-tslint-plugin',
+      \ 'coc-tsserver',
+      \ 'coc-ultisnips',
+      \ 'coc-vimlsp',
+      \ 'coc-yaml',
+      \ ]
 
 " Junegunn {{{
 Plug 'junegunn/goyo.vim'
@@ -241,11 +241,11 @@ set titleold="Terminal"
 set titlestring=%F
 
 if (has("nvim"))
-	"For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-	let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 if (has("termguicolors"))
-	set termguicolors
+  set termguicolors
 endif
 
 " }}}
@@ -336,7 +336,7 @@ nnoremap <leader>et :call EditDot("tmux/tmux.conf")<cr>
 nnoremap <silent> <leader>sh :terminal<CR>
 
 if has('nvim')
-	" Use escape to enter normal mode in a terminal buffer
+  " Use escape to enter normal mode in a terminal buffer
   tnoremap <Esc> <C-\><C-n>
   tnoremap <M-[> <Esc>
   tnoremap <C-v><Esc> <Esc>
@@ -518,13 +518,13 @@ function! PyTab()
 endfunction
 
 function! TabCd(dir)
-	if !isdirectory(a:dir)
-		echoerr a:dir . " is not a directory"
-		return
-	endif
+  if !isdirectory(a:dir)
+    echoerr a:dir . " is not a directory"
+    return
+  endif
 
-	execute "tabe " . a:dir
-	execute "lcd " . a:dir
+  execute "tabe " . a:dir
+  execute "lcd " . a:dir
 endfunction
 
 
@@ -534,13 +534,13 @@ command! -nargs=1 -complete=dir Tabcd call TabCd(<f-args>)
 cnoreabbr tabcd Tabcd
 
 function! ScratchFn(fileExt)
-	let curdate=system('date +%s')[:-2]
-	let buffName="scratch-" . curdate . "." . a:fileExt
-	execute "new " . l:buffName
+  let curdate=system('date +%s')[:-2]
+  let buffName="scratch-" . curdate . "." . a:fileExt
+  execute "new " . l:buffName
 
-	setlocal buftype=nofile
-	setlocal bufhidden=hide
-	setlocal noswapfile
+  setlocal buftype=nofile
+  setlocal bufhidden=hide
+  setlocal noswapfile
 endfunction
 
 " remap scratch to Scratch
@@ -557,9 +557,9 @@ if !exists('*s:setupWrapping')
 endif
 
 function! EditDot(file)
-	let path = $HOME . '/dotfiles/' . a:file
+  let path = $HOME . '/dotfiles/' . a:file
   execute "tabe " . fnameescape(l:path)
-	execute "Glcd"
+  execute "Glcd"
 endfunction
 
 " }}}
@@ -664,7 +664,7 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
-				 \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+         \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Snippets
 " Use <C-l> for trigger snippet expand.
@@ -691,18 +691,18 @@ let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
-	\ 'bg':      ['bg', 'Normal'],
-	\ 'hl':      ['fg', 'Comment'],
-	\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-	\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-	\ 'hl+':     ['fg', 'Statement'],
-	\ 'info':    ['fg', 'PreProc'],
-	\ 'border':  ['fg', 'Ignore'],
-	\ 'prompt':  ['fg', 'Conditional'],
-	\ 'pointer': ['fg', 'Exception'],
-	\ 'marker':  ['fg', 'Keyword'],
-	\ 'spinner': ['fg', 'Label'],
-	\ 'header':  ['fg', 'Comment'] }
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 
 " The Silver Searcher
 if executable('ag')
@@ -856,18 +856,18 @@ augroup go
   au Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
   au Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 
-	au Filetype go nmap <localleader>ae <Plug>(go-alternate-edit)
-	au Filetype go nmap <localleader>ah <Plug>(go-alternate-split)
-	au Filetype go nmap <localleader>a  <Plug>(go-alternate-vertical)
+  au Filetype go nmap <localleader>ae <Plug>(go-alternate-edit)
+  au Filetype go nmap <localleader>ah <Plug>(go-alternate-split)
+  au Filetype go nmap <localleader>a  <Plug>(go-alternate-vertical)
 
-	" gd = :GoDef
-	" <C-t> :GoDefPop
-	" K :GoDoc press enter to quit
-	" :GoDescribe shows all information about a type
-	" :GoChannelPeers shows all sends and recvs from a channel
-	" :GoCallers :Gocallees show where functions are used
-	" :GoWhichErrs shows what type an error might be
-	au Filetype go nnoremap <localleader>p :GoImport<space>
+  " gd = :GoDef
+  " <C-t> :GoDefPop
+  " K :GoDoc press enter to quit
+  " :GoDescribe shows all information about a type
+  " :GoChannelPeers shows all sends and recvs from a channel
+  " :GoCallers :Gocallees show where functions are used
+  " :GoWhichErrs shows what type an error might be
+  au Filetype go nnoremap <localleader>p :GoImport<space>
 
   au FileType go nmap <localleader>g  <Plug>(go-def)
   au FileType go nmap <localleader>dd <Plug>(go-def-vertical)

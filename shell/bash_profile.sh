@@ -28,7 +28,7 @@ fullPrompt(){
   success=$?
 
   PS1="\n${BLUE}\u"
-	PS1="${PS1} ${YELLOW} ${GREEN}\w"
+  PS1="${PS1} ${YELLOW} ${GREEN}\w"
 
   isGitRepo
   if [[ $? == 0 ]]
@@ -45,7 +45,7 @@ fullPrompt(){
 # »
   PS1="${PS1} ${YELLOW} \!"
 
-	PS1="${PS1} ${BLUE} ${GREEN}"
+  PS1="${PS1} ${BLUE} ${GREEN}"
 }
 
 minimalPrompt(){
@@ -152,8 +152,6 @@ alias dcomp='docker-compose'
 
 # other
 alias c='clear'
-alias fup='python deploy/local/cluster_cmd.py fixture-up && python deploy/local/cluster_cmd.py logs'
-alias fdn='make -C deploy/local fixture-down'
 
 # git
 alias g='git'
@@ -190,22 +188,24 @@ alias mp="make -C $PEDL"
 # Plugins {{{
 # ====================================
 # autojump
-[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+if [ "$(uname)" == "Darwin" ]; then
+	[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
-# Bash Completion
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
+	# Bash Completion
+	if [ -f $(brew --prefix)/etc/bash_completion ]; then
+		. $(brew --prefix)/etc/bash_completion
+	fi
+
+	# NVM
+	export NVM_DIR="/usr/lib/node_modules/bash-language-server"
+	source "/usr/local/opt/nvm/nvm.sh"
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 fi
-
-# NVM
-export NVM_DIR="$HOME/.nvm"
-source "/usr/local/opt/nvm/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # FZF
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+export FZF_DEFAULT_COMMAND='rg --hidden --files '
 # preview_opts='[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file || (highlight -O ansi -l {} || coderay {} || rougify {} || cat {}) 2> /dev/null | head -500'
 # export FZF_DEFAULT_OPTS="--preview $preview_opts"
 
@@ -223,78 +223,25 @@ function vf() {
   nvim "$@" $(f -m)
 }
 
-# export FZF_DEFAULT_OPTS="--preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file || (highlight -O ansi -l {} || coderay {} || rougify {} || cat {}) 2> /dev/null | head -500'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' --border"
-# Experimental
-fzf-down() {
-  fzf --height 50% "$@" --border
-}
-
-fs() {
-  local session
-  session=$(tmux list-sessions -F "#{session_name}" | \
-    fzf --height 40% --reverse --query="$1" --exit-0) &&
-  tmux switch-client -t "$session"
-}
 
 is_in_git_repo() {
   git rev-parse HEAD > /dev/null 2>&1
 }
 
-gf() {
-  is_in_git_repo || return
-  git -c color.status=always status --short |
-  fzf-down -m --ansi --nth 2..,.. \
-    --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
-  cut -c4- | sed 's/.* -> //'
-}
-
 co() {
-	git checkout $(gb)
+  git checkout $(gb)
 }
-
-gb() {
-  is_in_git_repo || return
-  git branch -a --color=always | grep -v '/HEAD\s' | sort |
-  fzf-down --ansi --multi --tac --preview-window right:70% \
-    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -200' |
-  sed 's/^..//' | cut -d' ' -f1 |
-  sed 's#^remotes/##'
-}
-
-gt() {
-  is_in_git_repo || return
-  git tag --sort -version:refname |
-  fzf-down --multi --preview-window right:70% \
-    --preview 'git show --color=always {} | head -200'
-}
-
-gh() {
-  is_in_git_repo || return
-  git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
-  fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
-    --header 'Press CTRL-S to toggle sort' \
-    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -200' |
-  grep -o "[a-f0-9]\{7,\}"
-}
-
-#gr() {
-#  is_in_git_repo || return
-#  git remote -v | awk '{print $1 "\t" $2}' | uniq |
-#  fzf-down --tac \
-#    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
-#  cut -d$'\t' -f1
-#}
 
 gfpr() {
-	is_in_git_repo || return
-	git fetch upstream pull/$1/head:pr-$1 && git checkout pr-$1
+  is_in_git_repo || return
+  git fetch upstream pull/$1/head:pr-$1 && git checkout pr-$1
 }
 
 gfb() {
-	is_in_git_repo || return
-	git fetch git@github.com:$1/pedl.git $2:$2
+  is_in_git_repo || return
+  git fetch git@github.com:$1/pedl.git $2:$2
 }
 
 if [[ $- =~ i ]]; then
@@ -314,6 +261,7 @@ PATH="$PATH:$HOME/bin"
 PATH="$PATH:$HOME/local_bin"
 PATH="$PATH:/usr/local/bin"
 PATH="$PATH:$HOME/.local/bin"
+PATH="$HOME/.pyenv/bin:$PATH"
 
 # Go installs packages here
 export GOPATH="$HOME/go"
@@ -333,8 +281,3 @@ if [ -f '/Users/brian/Downloads/google-cloud-sdk/path.bash.inc' ]; then . '/User
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/brian/Downloads/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/brian/Downloads/google-cloud-sdk/completion.bash.inc'; fi
-
-# Setting PATH for Python 3.6
-# The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
-export PATH

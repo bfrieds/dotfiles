@@ -1,4 +1,0 @@
-#!/bin/bash
-
-pbpaste | sed 's/^\* /• /g' | pbcopy
-echo "Slackified text copied to clipboard"

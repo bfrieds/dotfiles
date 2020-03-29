@@ -1,22 +1,22 @@
 {
   "suggest.echodocSupport": true,
   "suggest.maxCompleteItemCount": 20,
-	"html.filetypes": ["html", "handlebars"],
+  "html.filetypes": ["html", "handlebars"],
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
     "typescript",
-		"typescript.tsx",
+    "typescript.tsx",
     "typescriptreact",
     "json",
     "javascriptreact"
   ],
-	"prettier.eslintIntegration": true,
-	"python.formatting.provider": "black",
-	"python.linting.flake8Enabled": true,
-	"python.linting.pylintEnabled": false,
-	"python.linting.flake8Args": ["--config=/Users/brian/pedl/.flake8"],
-	"python.jediEnabled": false,
-	"eslint.filetypes": ["javascript", "typescript", "typescriptreact", "javascriptreact"],
+  "prettier.eslintIntegration": true,
+  "python.formatting.provider": "black",
+  "python.linting.flake8Enabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Args": ["--config=/Users/brian/pedl/.flake8"],
+  "python.jediEnabled": false,
+  "eslint.filetypes": ["javascript", "typescript", "typescriptreact", "javascriptreact"],
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
