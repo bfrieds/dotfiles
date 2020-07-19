@@ -180,9 +180,6 @@ alias gr='git rebase'
 alias grm='git rebase master'
 alias grim='git rebase -i master'
 
-# Work
-alias m='make'
-alias mp="make -C $PEDL"
 # }}}
 
 # Plugins {{{
@@ -223,16 +220,34 @@ function vf() {
   nvim "$@" $(f -m)
 }
 
+fzf-down() {
+  fzf --height 50% "$@" --border
+}
+
+
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' --border"
+
+
+export CODE="${HOME}/code/source"
 
 is_in_git_repo() {
   git rev-parse HEAD > /dev/null 2>&1
 }
 
+gb() {
+  is_in_git_repo || return
+  git branch -a --color=always | grep -v '/HEAD\s' | sort |
+  fzf-down --ansi --multi --tac --preview-window right:70% \
+    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -200' |
+  sed 's/^..//' | cut -d' ' -f1 |
+  sed 's#^remotes/##'
+}
+
 co() {
   git checkout $(gb)
 }
+
 
 gfpr() {
   is_in_git_repo || return
@@ -242,6 +257,14 @@ gfpr() {
 gfb() {
   is_in_git_repo || return
   git fetch git@github.com:$1/pedl.git $2:$2
+}
+
+
+# determined
+export DET="${CODE}/determined"
+rcm() {
+	make -C "${DET}/master" build
+	make -C "${DET}/tools" run
 }
 
 if [[ $- =~ i ]]; then
@@ -281,3 +304,5 @@ if [ -f '/Users/brian/Downloads/google-cloud-sdk/path.bash.inc' ]; then . '/User
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/brian/Downloads/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/brian/Downloads/google-cloud-sdk/completion.bash.inc'; fi
+
+set bell-style none

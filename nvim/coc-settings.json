@@ -14,7 +14,7 @@
   "python.formatting.provider": "black",
   "python.linting.flake8Enabled": true,
   "python.linting.pylintEnabled": false,
-  "python.linting.flake8Args": ["--config=/Users/brian/pedl/.flake8"],
+  "python.linting.flake8Args": ["--config=/Users/brian/determined/.flake8"],
   "python.jediEnabled": false,
   "eslint.filetypes": ["javascript", "typescript", "typescriptreact", "javascriptreact"],
   "languageserver": {

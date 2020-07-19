@@ -47,6 +47,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'Shougo/denite.nvim'
 " }}}
 
+Plug 'kristijanhusak/vim-carbon-now-sh'
+
 " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
@@ -811,7 +813,7 @@ endfunction
 
 " let g:go_def_mode = 'gopls'
 let g:go_list_type = "quickfix"
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = "goimports -l -local github.com/determined-ai"
 " let g:go_fmt_fail_silently = 1
 
 let g:go_auto_type_info = 0
@@ -910,3 +912,6 @@ let g:airline#extensions#virtualenv#enabled = 1
 let g:polyglot_disabled = ['python', 'go']
 let g:python_highlight_all = 1
 " }}}
+
+
+let g:python3_host_prog = '$HOME/virtualenvs/nvim/bin/python'
