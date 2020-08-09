@@ -26,6 +26,7 @@ if [ "$(uname)" == "Darwin" ]; then
 		findutils \
 		fzf \
 		git \
+		gnu-sed \
 		go \
 		grep \
 		htop \
@@ -42,9 +43,6 @@ if [ "$(uname)" == "Darwin" ]; then
 		tmux \
 		tree \
 		wget
-
-	# Install GNU `sed`, overwriting the built-in `sed`.
-	brew install gnu-sed --with-default-names
 
 	# Switch to using brew-installed bash as default shell
 	if ! fgrep -q "${BREW_PREFIX}/bin/bash" /etc/shells; then
