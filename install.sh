@@ -56,7 +56,6 @@ if [ "$(uname)" == "Darwin" ]; then
 		alfred \
 		docker \
 		dropbox \
-		evernote \
 		firefox \
 		go2shell \
 		google-chrome \
