@@ -127,7 +127,11 @@ elif [ "$(uname)" == "Linux" ]; then
 fi
 
 # Creates symlinks for dotfiles
-DOT_FILES="$HOME/dotfiles"
+if [ -z "$GITHUB_ACTION" ]; then
+	DOT_FILES="$HOME/dotfiles"
+else
+	DOT_FILES="$GITHUB_WORKSPACE"
+fi
 
 echo "Dot files folder: $DOT_FILES"
 
