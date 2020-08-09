@@ -260,13 +260,6 @@ gfb() {
 }
 
 
-# determined
-export DET="${CODE}/determined"
-rcm() {
-	make -C "${DET}/master" build
-	make -C "${DET}/tools" run
-}
-
 if [[ $- =~ i ]]; then
   bind '"\er": redraw-current-line'
   bind '"\C-g\C-f": "$(gf)\e\C-e\er"'
@@ -293,16 +286,7 @@ export PATH=$PATH:$GOBIN
 export PATH=$PATH:$GOROOT/bin
 export GO111MODULE=on
 
-
-export PATH="$HOME/.cargo/bin:$PATH"
+set bell-style none
 
 local_conf="$HOME/dotfiles/shell/local_bin/local_conf.sh"
 test -f "$local_conf" && source "$local_conf"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/brian/Downloads/google-cloud-sdk/path.bash.inc' ]; then . '/Users/brian/Downloads/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/brian/Downloads/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/brian/Downloads/google-cloud-sdk/completion.bash.inc'; fi
-
-set bell-style none
