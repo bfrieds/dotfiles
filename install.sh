@@ -2,6 +2,7 @@
 set -x
 set -e
 
+[ -z "$GITHUB_ACTION" ] && sudo -v
 # Quick install script for mac
 
 if [ "$(uname)" == "Darwin" ]; then
@@ -47,7 +48,7 @@ if [ "$(uname)" == "Darwin" ]; then
 	# Switch to using brew-installed bash as default shell
 	if ! fgrep -q "${BREW_PREFIX}/bin/bash" /etc/shells; then
 		echo "${BREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells;
-		chsh -s "${BREW_PREFIX}/bin/bash";
+		sudo chsh -s "${BREW_PREFIX}/bin/bash" $(whoami)
 	fi;
 
 	brew cask install \
