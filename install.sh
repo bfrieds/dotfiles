@@ -142,12 +142,12 @@ ln -s $DOT_FILES/tmux/tmux.conf.local $HOME/.tmux.conf.local
 
 rm -rf $HOME/.config/nvim
 ln -s $DOT_FILES/nvim $HOME/.config
-ln -s $DOT_FILES/shell/bash_profile.sh $HOME/.bash_profile
+ln -sf $DOT_FILES/shell/bash_profile.sh $HOME/.bash_profile
 
-ln -s $DOT_FILES/nvim/init.vim $HOME/.vimrc
+ln -sf $DOT_FILES/nvim/init.vim $HOME/.vimrc
 
-ln -s $DOT_FILES/git/gitconfig $HOME/.gitconfig
-ln -s $DOT_FILES/git/gitignore $HOME/.gitignore
+ln -sf $DOT_FILES/git/gitconfig $HOME/.gitconfig
+ln -sf $DOT_FILES/git/gitignore $HOME/.gitignore
 
 if [[ -d $HOME/bin ]]
 then
