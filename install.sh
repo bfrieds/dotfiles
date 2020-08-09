@@ -29,7 +29,6 @@ if [ "$(uname)" == "Darwin" ]; then
 		go \
 		grep \
 		htop \
-		moreutils \
 		neovim \
 		nvm \
 		openssh \
