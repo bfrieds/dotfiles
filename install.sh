@@ -168,7 +168,7 @@ mkdir -p "$HOME/go/src"
 # Install Vim Plugins
 python3 -m pip install pynvim
 curl -fLo "$HOME/.config/nvim/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-nvim +PlugInstall +GoInstallBinaries +qa
+#nvim +PlugInstall +GoInstallBinaries +qa
 
 if [ "$(uname)" == "Darwin" ]; then
 	echo "Configuring MacOS"
