@@ -43,12 +43,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 " }}}
 
-" Shougo {{{
-Plug 'Shougo/denite.nvim'
-" }}}
-
-Plug 'kristijanhusak/vim-carbon-now-sh'
-
 " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
